@@ -163,8 +163,8 @@ status :-
   write('Thirst : '), write(Thirst), nl,
   write('Weapon : '), write(Weapon), nl, 
   /* If-else in Prolog */
-  ( Inventory == [] -> write('Crap,take something already dude.Or do you want to die here? '), nl
-  ; write('Inventory : '), nl,  printlist(Inventory)
+  ( Inventory == [] -> write('Crap,take something already dude.Or do you want to die here? '), nl,!
+  ; write('Inventory : '), nl,  printlist(Inventory),!
   ).
 
 
@@ -189,12 +189,13 @@ drop(Object) :-
                 ).
 
 /* Still not have connection with location */
-is_exist(Object) :- member(Object,Inventory).
+is_exist(Object) :- get_item_list(Inventory), member(Object,Inventory).
 
 /* Still not have connection with location */
 delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
                        delete(Inventory,Object,NewInventory),
                        asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
+
 
 /* Use command */
 use(Object) :-  
