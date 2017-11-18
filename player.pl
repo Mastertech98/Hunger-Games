@@ -22,6 +22,7 @@ init_player:-
   default_position(X,Y),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
+
 /* Health */
 increase_health(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
@@ -40,15 +41,16 @@ set_health(Health):-
   retract(player(X,Y,CurrHealth,Hunger,Thirst,Weapon,Inventory)),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
+
 /* Hunger */
 increase_hunger(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  CurrHunger is Hunger+Amount,
+  CurrHunger is Hunger + Amount,
   asserta(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)).
 
 decrease_hunger(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  CurrHunger is Hunger-Amount,
+  CurrHunger is Hunger - Amount,
   asserta(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)).
 
 get_hunger(Hunger):-
@@ -58,15 +60,16 @@ set_hunger(Hunger):-
   retract(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
+
 /* Thirst */
 increase_thirst(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  CurrThirst is Thirst+Amount,
+  CurrThirst is Thirst + Amount,
   asserta(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)).
 
 decrease_thirst(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  CurrThirst is Thirst-Amount,
+  CurrThirst is Thirst - Amount,
   asserta(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)).
 
 get_thirst(Thirst):-
@@ -76,6 +79,7 @@ set_thirst(Thirst):-
   retract(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
+
 /* Weapon */
 set_weapon(Weapon):-
   retract(player(X,Y,Health,Hunger,Thirst,CurrWeapon,Inventory)),
@@ -84,14 +88,20 @@ set_weapon(Weapon):-
 get_weapon(Weapon):-
   player(_,_,_,_,_,Weapon,_).
 
+
 /* Inventory */
 add_item(Item):- /* Use for command Take */
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
   append([Item],Inventory,NewInventory),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
 
+search_item(Item):- 
+  retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+  member(Item,Inventory).
+
 get_item_list(Inventory):-
   player(_,_,_,_,_,_,Inventory).
+
 
 /* Position */
 get_position(X,Y):-
@@ -101,19 +111,21 @@ set_position(X,Y):-
   retract(player(CurrX,CurrY,Health,Hunger,Thirst,Weapon,Inventory)),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
 
+
+/* Status command */
 status :-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
   write('Health : '), write(Health), nl,
   write('Hunger : '), write(Hunger), nl,
   write('Thirst : '), write(Thirst), nl,
   write('Weapon : '), write(Weapon), nl, 
-  Inventory \== default_inventory, write('Inventory : '), nl,  printlist(Inventory).
+  (Inventory == [] -> write('Crap,take something already dude.Or do you want to die here? '), nl,fail
+  ; write('Inventory : '), nl,  printlist(Inventory)).
 
-status :-
-  retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  write('Health : '), write(Health), nl,
-  write('Hunger : '), write(Hunger), nl,
-  write('Thirst : '), write(Thirst), nl,
-  write('Weapon : '), write(Weapon), nl,
-  Inventory == [], write('Crap,take something already dude.Or do you want to die here? '), nl.
+
+/* Take command */
+take(Item) :- ( \+ search_item(Item) -> write('Whoa man,you had that already.Find other things more useful'),nl
+               ; add_item(Item)).
+
+
 
