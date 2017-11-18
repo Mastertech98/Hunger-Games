@@ -47,7 +47,7 @@ look :- currentPosition(X,Y), !,
         Xi is X-1, Yi is Y+1, printGrid(Xi,Yi), write(' '), nl,
         Xi is X+1, Yi is Y-1, printGrid(Xi,Yi), write(' '),
         Xi is X+1, Yi is Y, printGrid(Xi,Yi), write(' '),
-        Xi is X+1, Yi is Y+1, printGrid(Xi,Yi), write(' '), nl
+        Xi is X+1, Yi is Y+1, printGrid(Xi,Yi), write(' '), nl,
         Xi is X, Yi is Y-1, printGrid(Xi,Yi), write(' '),
         Xi is X, Yi is Y, printGrid(Xi,Yi), write(' '),
         Xi is X, Yi is Y+1, printGrid(Xi,Yi). write(' '), nl.
