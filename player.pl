@@ -1,8 +1,50 @@
 :- dynamic(player/7).
+:- dynamic(location/3).
+
+/* --------------------------- OBJECT --------------------------- */
+
+/* Weapon and its attack */
+weapon(axe,50).
+weapon(baton,40).
+weapon(blowgun,60).
+weapon(crossbow,100).
+weapon(knife,30).
+weapon(mace,50).
+weapon(machete,60).
+weapon(scythe,70).
+
+/* Food and its power */
+food(burger,30).
+food(rice,35).
+food(noodle,30).
+food(bread,20).
+food(salad,10).
+
+/* Drink and its power */
+drink(water,20).
+drink(tea,30).
+drink(coffee,25).
+drink(cola,30).
+drink(wine,35).
+
+/* Medical kit and its power */
+medical(medicalkit,30).
+medical(lotus,50).
+
+
+/* --------------------------- PLAYER --------------------------- */
 
 /* Rules for printlist */
 printlist([]) :- !.
 printlist([A|B]) :- write(' o '),write(A),nl,printlist(B).
+
+/* Rules for determining length of list */
+len([], LenResult):-
+    LenResult is 0.
+
+len([X|Y], LenResult):-
+    len(Y, L),
+    LenResult is L + 1.
 
 /* Default attribute for player */
 default_health(100).
@@ -11,6 +53,11 @@ default_thirst(100).
 default_position(0,0).
 default_weapon('none').
 default_inventory([]).
+
+/* Maximum amount of inventory */
+standard_size(10).
+upgraded_size(20).
+
 
 /* Initialize Player */
 init_player:-
@@ -95,10 +142,6 @@ add_item(Item):- /* Use for command Take */
   append([Item],Inventory,NewInventory),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
 
-search_item(Item):- 
-  retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  member(Item,Inventory).
-
 get_item_list(Inventory):-
   player(_,_,_,_,_,_,Inventory).
 
@@ -119,13 +162,22 @@ status :-
   write('Hunger : '), write(Hunger), nl,
   write('Thirst : '), write(Thirst), nl,
   write('Weapon : '), write(Weapon), nl, 
-  (Inventory == [] -> write('Crap,take something already dude.Or do you want to die here? '), nl,fail
-  ; write('Inventory : '), nl,  printlist(Inventory)).
+  /* If-else in Prolog */
+  ( Inventory == [] -> write('Crap,take something already dude.Or do you want to die here? '), nl
+  ; write('Inventory : '), nl,  printlist(Inventory)
+  ).
 
 
 /* Take command */
-take(Item) :- ( \+ search_item(Item) -> write('Whoa man,you had that already.Find other things more useful'),nl
-               ; add_item(Item)).
+take(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+                ( can_take(Object), format('You took ~w !',[Object]),nl,!
+                ; format('~w does not exist here',[Object]),nl,fail
+                ).
 
-
+/* location define object's location.Not yet made */
+can_take(Object) :- ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X  < 10 -> add_item(Object)
+                    ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
+                    ).
 
