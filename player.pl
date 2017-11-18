@@ -1,8 +1,8 @@
 :- dynamic(player/7).
 
 /* Rules for printlist */
-printlist([]).
-printlist([A|B]) :- write(' '),write(A),nl,printlist(B).
+printlist([]) :- !.
+printlist([A|B]) :- write(' o '),write(A),nl,printlist(B).
 
 /* Default attribute for player */
 default_health(100).
@@ -43,13 +43,13 @@ set_health(Health):-
 /* Hunger */
 increase_hunger(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  ResultHunger is Hunger+Amount,
-  asserta(player(X,Y,Health,ResultHunger,Thirst,Weapon,Inventory)).
+  CurrHunger is Hunger+Amount,
+  asserta(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)).
 
 decrease_hunger(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  ResultHunger is Hunger-Amount,
-  asserta(player(X,Y,Health,ResultHunger,Thirst,Weapon,Inventory)).
+  CurrHunger is Hunger-Amount,
+  asserta(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)).
 
 get_hunger(Hunger):-
   player(_,_,_,Hunger,_,_,_).
@@ -61,13 +61,13 @@ set_hunger(Hunger):-
 /* Thirst */
 increase_thirst(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  ResultThirst is Thirst+Amount,
-  asserta(player(X,Y,Health,Hunger,ResultThirst,Weapon,Inventory)).
+  CurrThirst is Thirst+Amount,
+  asserta(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)).
 
 decrease_thirst(Amount):-
   retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-  ResultThirst is Thirst-Amount,
-  asserta(player(X,Y,Health,Hunger,ResultThirst,Weapon,Inventory)).
+  CurrThirst is Thirst-Amount,
+  asserta(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)).
 
 get_thirst(Thirst):-
   player(_,_,_,_,Thirst,_,_).
@@ -100,3 +100,20 @@ get_position(X,Y):-
 set_position(X,Y):-
   retract(player(CurrX,CurrY,Health,Hunger,Thirst,Weapon,Inventory)),
   asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
+
+status :-
+  retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+  write('Health : '), write(Health), nl,
+  write('Hunger : '), write(Hunger), nl,
+  write('Thirst : '), write(Thirst), nl,
+  write('Weapon : '), write(Weapon), nl, 
+  Inventory \== default_inventory, write('Inventory : '), nl,  printlist(Inventory).
+
+status :-
+  retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+  write('Health : '), write(Health), nl,
+  write('Hunger : '), write(Hunger), nl,
+  write('Thirst : '), write(Thirst), nl,
+  write('Weapon : '), write(Weapon), nl,
+  Inventory == [], write('Crap,take something already dude.Or do you want to die here? '), nl.
+
