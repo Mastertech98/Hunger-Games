@@ -16,6 +16,8 @@ TODOS:
 -- stop saat kalah, munculin text
 - BONUS
 -- func 1
+Ide func 1:Ekspansi max inventory dengan command Upgrade_inventory asal dia punya bag tambahan di
+inventory nya
 -- func 2
 
 PEMBAGIAN TUGAS :

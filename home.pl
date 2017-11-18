@@ -63,8 +63,10 @@ start:- write('_________________________________________________________________
 		write('Welcome to the 77th Hunger Games!\n'), 
 		write('You have been chosen as one of the lucky contestants. Be the last man standing and you will be remembered as\n'), 
 		write('one of the victors.\n'),
-		repeat,read(X),(
-		   X=='quit' -> quit
+		repeat,
+		  write('> '),
+		  read(X),(
+		  X=='quit' -> quit
 		  ;X=='save' -> save
 		  ;X=='load' -> load
 		  ;X=='help' -> help
