@@ -169,15 +169,37 @@ status :-
 
 
 /* Take command */
-take(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+take(Object) :- 
                 ( can_take(Object), format('You took ~w !',[Object]),nl,!
                 ; format('~w does not exist here',[Object]),nl,fail
                 ).
 
 /* location define object's location.Not yet made */
-can_take(Object) :- ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
+can_take(Object) :- 
+                    ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
                     ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
                     ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X  < 10 -> add_item(Object)
                     ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
                     ).
 
+/* Drop command */
+drop(Object) :- 
+                ( is_exist(Object) -> delete_item(Object),format('You drop ~w !',[Object]),nl,!
+                ; format('~w does not exist in your inventory',[Object]),nl,fail
+                ).
+
+/* Still not have connection with location */
+is_exist(Object) :- member(Object,Inventory).
+
+/* Still not have connection with location */
+delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+                       delete(Inventory,Object,NewInventory),
+                       asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
+
+/* Use command */
+use(Object) :-  
+                ( weapon(Object,_) -> add_item(Object)
+                ; food(Object,Plus) -> increase_hunger(Plus)
+                ; drink(Object,Plus) -> increase_thirst(Plus)
+                ; medical(Object,Plus)  -> increase_health(Plus)
+                ).
