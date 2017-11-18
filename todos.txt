@@ -6,7 +6,7 @@ TODOS:
 -- print objek sekitar
 - Buat objects:
 -- take objects = append directory, remove dari map, cuma bisa ambil kalo udh ada di inventory (?)
--- use objects = side effect ke fact player, kuraning dari inventory
+-- use objects = side effect ke fact player, kurangin dari inventory
 - Enemy
 -- generate 10 random enemies, taro di map
 -- move random tiap kali user gerak
@@ -17,3 +17,10 @@ TODOS:
 - BONUS
 -- func 1
 -- func 2
+
+PEMBAGIAN TUGAS :
+- Player dan command yang berhubungan
+- Enemy dan functionality nya
+- Map dan Attack
+- Save dan load
+
