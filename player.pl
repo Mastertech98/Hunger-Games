@@ -199,7 +199,7 @@ delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)
 
 /* Use command */
 use(Object) :-  
-                ( weapon(Object,_) -> add_item(Object) /* sync with attack later */
+                ( weapon(Object,Damage) -> use_weapon(Object,Damage) /* sync with attack later */
                 ; food(Object,Plus) -> increase_hunger(Plus)
                 ; drink(Object,Plus) -> increase_thirst(Plus)
                 ; medical(Object,Plus)  -> increase_health(Plus)
