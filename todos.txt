@@ -1,0 +1,19 @@
+TODOS:
+- Buat peta, fitur:
+-- move n, w, s, u
+-- print map 10x20
+-- look, liat 3x3 sekitar pemain
+-- print objek sekitar
+- Buat objects:
+-- take objects = append directory, remove dari map, cuma bisa ambil kalo udh ada di inventory (?)
+-- use objects = side effect ke fact player, kuraning dari inventory
+- Enemy
+-- generate 10 random enemies, taro di map
+-- move random tiap kali user gerak
+-- attack mechanism
+- Game logic
+-- stop saat menang, munculin text
+-- stop saat kalah, munculin text
+- BONUS
+-- func 1
+-- func 2
