@@ -207,10 +207,10 @@ delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).
 /* Use command */
 use(Object) :-  
                 ( is_exist(Object) ->
-                    ( weapon(Object,Damage) -> use_weapon(Object,Damage) /* sync with attack later */
-                    ; food(Object,Plus) -> increase_hunger(Plus) , delete_item(Object)
-                    ; drink(Object,Plus) -> increase_thirst(Plus) , delete_item(Object)
-                    ; medical(Object,Plus)  -> increase_health(Plus) , delete_item(Object)
+                    ( weapon(Object,_) -> set_weapon(Object) , format('You have successfully use ~w',[Object]),nl, delete_item(Object) 
+                    ; food(Object,Plus) -> increase_hunger(Plus) , format('You have successfully use ~w',[Object]),nl, delete_item(Object)
+                    ; drink(Object,Plus) -> increase_thirst(Plus) , format('You have successfully use ~w',[Object]),nl, delete_item(Object)
+                    ; medical(Object,Plus)  -> increase_health(Plus) , format('You have successfully use ~w',[Object]),nl, delete_item(Object)
                     )
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
