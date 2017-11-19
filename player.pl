@@ -32,7 +32,7 @@ medical(medicalkit,30).
 medical(lotus,50).
 
 /* Special */
-bag(backpack).
+special(backpack).
 
 
 /* --------------------------- PLAYER --------------------------- */
