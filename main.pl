@@ -1,3 +1,7 @@
 :- include('map.pl').
+:- include('enemy.pl').
 
-start :- initMap, printMap.
+start :- initGame.
+
+
+initGame :- initMap, initEnemy, printMap.

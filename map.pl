@@ -47,6 +47,7 @@ printMapInner(X,Y) :- write(' '), printGrid(X,Y), write(' '), Yi is Y+1, printMa
 printMap :- printMapInner(0,0).
 
 printGrid(Row,Col) :- currentPosition(Row,Col), !, write('P').
+printGrid(Row,Col) :- enemyAt(Row,Col,_), !, write('E').
 printGrid(Row,Col) :- mapAt(Row,Col,X), X == '#', !, write('#').
 printGrid(Row,Col) :- mapAt(Row,Col,X), X == 'A', !, write('H').
 printGrid(Row,Col) :- mapAt(Row,Col,X), X == 'B', !, write('L').
