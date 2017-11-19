@@ -19,8 +19,6 @@ TODOS:
 Ide func 1:Ekspansi max inventory dengan command 'expand' asal dia punya item bag di
 inventory nya
 -- func 2
-Ide func 2:Ga tau work atau gk,ada inventory spesial 'map' yang bisa buat kita liat seluruh map
-dengan command 'view'
 
 
 PEMBAGIAN TUGAS :

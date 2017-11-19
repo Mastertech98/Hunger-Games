@@ -221,7 +221,3 @@ use(Object) :-
 
 /* Expand command */
 expand(Object) :- bag(Object) , use(Object).
-
-/* View command */
-view(Object) :- map(Object) , use(Object).
-                
