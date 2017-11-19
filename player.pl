@@ -31,6 +31,9 @@ drink(wine,35).
 medical(medicalkit,30).
 medical(lotus,50).
 
+/* Special */
+bag(backpack).
+
 
 /* --------------------------- PLAYER --------------------------- */
 
@@ -171,20 +174,21 @@ status :-
 /* Take command */
 take(Object) :- 
                 ( can_take(Object), format('You took ~w !',[Object]),nl,!
-                ; format('~w does not exist here',[Object]),nl,fail
+                ; format('~w does not exist here or your inventory is full',[Object]),nl,fail
                 ).
 
-/* location define object's location.Not yet made */
+/* location define object's location.Synced later with map */
 can_take(Object) :- 
-                    ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , len(Inventory,X) , X  < 10 -> add_item(Object)
-                    ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , len(Inventory,X) , X < 10 -> add_item(Object)
+                    ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X  < 10 -> add_item(Object)
+                    ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; special(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
                     ).
 
 /* Drop command */
 drop(Object) :- 
-                ( is_exist(Object) -> delete_item(Object),format('You drop ~w !',[Object]),nl,!
+                ( is_exist(Object) -> delete_item(Object) /* drop should return item to map,not yet made*/, format('You drop ~w !',[Object]),nl,!
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
 
@@ -193,14 +197,20 @@ is_exist(Object) :- get_item_list(Inventory), member(Object,Inventory).
 
 /* Still not have connection with location */
 delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
-                       delete(Inventory,Object,NewInventory),
+                       delete_once(Object,Inventory,NewInventory),
                        asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
 
+/* Rules for deleting just one element in list */
+delete_once(X,[X|Xs],Xs) :- !.
+delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).  
 
 /* Use command */
 use(Object) :-  
-                ( weapon(Object,Damage) -> use_weapon(Object,Damage) /* sync with attack later */
-                ; food(Object,Plus) -> increase_hunger(Plus)
-                ; drink(Object,Plus) -> increase_thirst(Plus)
-                ; medical(Object,Plus)  -> increase_health(Plus)
+                ( is_exist(Object) ->
+                    ( weapon(Object,Damage) -> use_weapon(Object,Damage) /* sync with attack later */
+                    ; food(Object,Plus) -> increase_hunger(Plus) , delete_item(Object)
+                    ; drink(Object,Plus) -> increase_thirst(Plus) , delete_item(Object)
+                    ; medical(Object,Plus)  -> increase_health(Plus) , delete_item(Object)
+                    )
+                ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
