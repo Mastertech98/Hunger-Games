@@ -1,3 +1,3 @@
 :- include('map.pl').
 
-start :- initMap.
+start :- initMap, printMap.
