@@ -214,7 +214,7 @@ use(Object) :-
                     ; drink(Object,Plus) -> increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
                     ; medical(Object,Plus)  -> increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
                 /*  ; bag(Object) -> set_max_inventory ,delete_item(Object) */
-                /*  ; map(Object) -> look_all_map , delete_item(Object) */
+                /*  ; map(Object) -> look_all_map  */
                     )
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
