@@ -16,9 +16,12 @@ TODOS:
 -- stop saat kalah, munculin text
 - BONUS
 -- func 1
-Ide func 1:Ekspansi max inventory dengan command Upgrade_inventory asal dia punya item bag di
+Ide func 1:Ekspansi max inventory dengan command 'upgrade' asal dia punya item bag di
 inventory nya
 -- func 2
+Ide func 2:Ga tau work atau gk,ada inventory spesial 'map' yang bisa buat kita liat seluruh map
+dengan command 'view'
+
 
 PEMBAGIAN TUGAS :
 - Player dan command yang berhubungan

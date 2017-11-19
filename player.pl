@@ -32,7 +32,8 @@ medical(medicalkit,30).
 medical(lotus,50).
 
 /* Special */
-special(backpack).
+bag(backpack).
+map(old_map).
 
 
 /* --------------------------- PLAYER --------------------------- */
@@ -183,7 +184,8 @@ can_take(Object) :-
                     ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
                     ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X  < 10 -> add_item(Object)
                     ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; special(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; bag(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+                    ; map(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
                     ).
 
 /* Drop command */
@@ -211,6 +213,8 @@ use(Object) :-
                     ; food(Object,Plus) -> increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
                     ; drink(Object,Plus) -> increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
                     ; medical(Object,Plus)  -> increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
+                /*  ; bag(Object) -> set_max_inventory */
+                /*  ; map(Object) -> look_all_map */
                     )
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
