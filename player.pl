@@ -33,7 +33,7 @@ medical(lotus,50).
 
 /* Special */
 bag(backpack).
-map(old_map).
+map(radar).
 
 
 /* --------------------------- PLAYER --------------------------- */

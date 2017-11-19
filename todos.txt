@@ -1,7 +1,7 @@
 TODOS:
 - Buat peta, fitur:
 -- move n, w, s, u
--- print map 10x20
+-- print map 10x20 asal dia punya radar (command map)
 -- look, liat 3x3 sekitar pemain
 -- print objek sekitar
 - Buat objects:
