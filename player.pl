@@ -213,12 +213,15 @@ use(Object) :-
                     ; food(Object,Plus) -> increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
                     ; drink(Object,Plus) -> increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
                     ; medical(Object,Plus)  -> increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
-                /*  ; bag(Object) -> set_max_inventory */
-                /*  ; map(Object) -> look_all_map */
+                /*  ; bag(Object) -> set_max_inventory ,delete_item(Object) */
+                /*  ; map(Object) -> look_all_map , delete_item(Object) */
                     )
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
 
+/* Expand command */
+expand(Object) :- bag(Object) , use(Object).
 
-
+/* View command */
+view(Object) :- map(Object) , use(Object).
                 
