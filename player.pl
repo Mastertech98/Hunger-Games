@@ -47,8 +47,7 @@ len([], LenResult):-
     LenResult is 0.
 
 len([X|Y], LenResult):-
-    len(Y, L),
-    LenResult is L + 1.
+    len(Y, L), LenResult is L + 1.
 
 /* Default attribute for player */
 default_health(100).
@@ -161,7 +160,11 @@ set_position(X,Y):-
 
 /* Status command */
 status :-
-    retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
+    get_health(Health),
+    get_weapon(Weapon),
+    get_thirst(Thirst),
+    get_item_list(Inventory),
+    get_hunger(Hunger),
     write('Health : '), write(Health), nl,
     write('Hunger : '), write(Hunger), nl,
     write('Thirst : '), write(Thirst), nl,

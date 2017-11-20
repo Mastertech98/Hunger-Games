@@ -1,3 +1,6 @@
+:-include('player.pl').
+:-include('main.pl').
+
 quit:-halt.
 help:-	write('Available commands:\n'),
 		write('start.'),          
@@ -63,12 +66,16 @@ start:- write('_________________________________________________________________
 		write('Welcome to the 77th Hunger Games!\n'), 
 		write('You have been chosen as one of the lucky contestants. Be the last man standing and you will be remembered as\n'), 
 		write('one of the victors.\n'),
-		repeat,
-		  write('> '),
+		write('type help to see all command in this game.\n'),
+		command.
+
+		
+command:-write('> '),
 		  read(X),(
-		  X=='quit' -> quit
-		  ;X=='save' -> save
-		  ;X=='load' -> load
-		  ;X=='help' -> help
-		  ;X=='look' -> look
-		  ;X=='status' -> status),!.
+			  X=='quit' -> quit
+			  ;X=='save' -> save
+			  ;X=='load' -> load
+			  ;X=='help' -> help
+			  ;X=='look' -> look
+			  ;X=='status' -> status),command,!.
+		  
