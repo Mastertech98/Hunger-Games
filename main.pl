@@ -72,4 +72,4 @@ title:- write('_________________________________________________________________
 		
 start :- title.
 
-initGame :- init_map, init_enemy,printMap, init_player.
+initGame :- init_map, init_enemy, init_player.
