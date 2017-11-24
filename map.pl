@@ -101,7 +101,7 @@ print_current_grid_neighbours :- current_position(X,Y), !,
         D is Y+1, write('on your east there\'s '), print_grid_map(X, D), nl,
         !.
 
-print_current_grid_map_message :- current_position(X,Y), write('Your\'e in '), print_grid_map(X,Y), nl.
+print_current_grid_map_message :- current_position(X,Y), write('You\'re in '), print_grid_map(X,Y), nl.
 
 print_current_grid_enemies :- current_position(X,Y), enemy_at(X,Y,_,_), write('You see enemy nearby!'), nl.
 print_current_grid_enemies :- !.

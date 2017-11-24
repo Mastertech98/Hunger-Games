@@ -29,3 +29,4 @@ PEMBAGIAN TUGAS :
 
 Issue :
 - If can not move ,still display the situation
+- Kalau pas move ketemu object dia minta true?
