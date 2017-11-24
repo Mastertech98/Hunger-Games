@@ -2,6 +2,8 @@
 /* newwww */
 :- dynamic(object_at/2).
 
+:- dynamic(has_upgraded/1).
+
 /* --------------------------- OBJECT --------------------------- */
 
 /*
@@ -66,7 +68,7 @@ object_val(lotus,50).
 object_val(backpack,0).
 object_val(radar,0).
 
-
+has_upgraded(0).
 /* --------------------------- PLAYER --------------------------- */
 
 /* Rules for printlist */
@@ -87,11 +89,6 @@ default_thirst(100).
 default_position(0,0).
 default_weapon('none').
 default_inventory([]).
-
-/* Maximum amount of inventory */
-standard_size(10).
-upgraded_size(20).
-
 
 /* Initialize Player */
 init_player:-
@@ -214,12 +211,18 @@ take(Object) :-
 
 /* location define object's location.Synced later with map */
 can_take(Object) :- 
-( object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,food)/* , player(X,Y,_,_,_,_,_)  , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_)  , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X  < 10 -> add_item(Object)
-; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,map) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+( object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,food)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,food)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
+; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
+; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,map) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,map) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
 ).
 
 /* Drop command */
@@ -228,10 +231,8 @@ drop(Object) :-
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
 
-/* Still not have connection with location */
 is_exist(Object) :- get_item_list(Inventory), member(Object,Inventory).
 
-/* Still not have connection with location */
 delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),
                        delete_once(Object,Inventory,NewInventory),
                        asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
@@ -247,11 +248,13 @@ use(Object) :-
   ; object_type(Object,food)-> object_val(Object,Plus),increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
   ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
   ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
-/*  ; bag(Object) -> set_max_inventory ,delete_item(Object) *
-/*  ; map(Object) -> look_all_map  */
+  ; bag(Object) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object) 
+  ; map(Object) -> look_all_map ,format('Whoa, you upgrade your bag with ~w.',[Object]) 
   )
 ; format('~w does not exist in your inventory',[Object]),nl,fail
 ).
+
+set_max_inventory :- retract(has_upgraded(_)) , asserta(has_upgraded(1)).
 
 /* Expand command */
 expand(Object) :- bag(Object) , use(Object).
