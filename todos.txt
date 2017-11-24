@@ -28,5 +28,7 @@ PEMBAGIAN TUGAS :
 - Save dan load
 
 Issue :
-- If can not move ,still display the situation
+- Kalau ga bisa move ,masi tampiliin sekitarnya
 - Kalau pas move ketemu object dia minta true?
+- Saat move,kalau liat food maunya ditampilin nama food nya
+- Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk
