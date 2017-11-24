@@ -1,6 +1,4 @@
 :- dynamic(player/7).
-:- dynamic(location/3).
-
 /* newwww */
 :- dynamic(object_at/2).
 
@@ -17,43 +15,56 @@
     object_at(seblak, 1, 2).
     object_val(seblak, 20) - dimana val dari food itu adalah jumlah hp yg naik kalo dikonsumsi
 */
-object_type(seblak, food).
-object_at(seblak, 1, 2).
-object_val(seblak, 20).
 
 /* end */
 
-/* Weapon and its attack */
-weapon(axe,50).
-weapon(baton,40).
-weapon(blowgun,60).
-weapon(crossbow,100).
-weapon(knife,30).
-weapon(mace,50).
-weapon(machete,60).
-weapon(scythe,70).
+/* Object type and it's name */
+object_type(axe,weapon).
+object_type(baton,weapon).
+object_type(blowgun,weapon).
+object_type(crossbow,weapon).
+object_type(knife,weapon).
+object_type(mace,weapon).
+object_type(machete,weapon).
+object_type(scythe,weapon).
+object_type(burger,food).
+object_type(rice,food).
+object_type(noodle,food).
+object_type(bread,food).
+object_type(salad,food).
+object_type(water,drink).
+object_type(tea,drink).
+object_type(coffee,drink).
+object_type(cola,drink).
+object_type(wine,drink).
+object_type(medicalkit,medical).
+object_type(lotus,medical).
+object_type(backpack,bag).
+object_type(radars,map).
 
-/* Food and its power */
-food(burger,30).
-food(rice,35).
-food(noodle,30).
-food(bread,20).
-food(salad,10).
-
-/* Drink and its power */
-drink(water,20).
-drink(tea,30).
-drink(coffee,25).
-drink(cola,30).
-drink(wine,35).
-
-/* Medical kit and its power */
-medical(medicalkit,30).
-medical(lotus,50).
-
-/* Special */
-bag(backpack).
-map(radar).
+/* Object val and it's name */
+object_val(axe,50).
+object_val(baton,40).
+object_val(blowgun,60).
+object_val(crossbow,100).
+object_val(knife,30).
+object_val(mace,50).
+object_val(machete,60).
+object_val(scythe,70).
+object_val(burger,30).
+object_val(rice,35).
+object_val(noodle,30).
+object_val(bread,20).
+object_val(salad,10).
+object_val(water,20).
+object_val(tea,30).
+object_val(coffee,25).
+object_val(cola,30).
+object_val(wine,35).
+object_val(medicalkit,30).
+object_val(lotus,50).
+object_val(backpack,0).
+object_val(radar,0).
 
 
 /* --------------------------- PLAYER --------------------------- */
@@ -203,13 +214,13 @@ take(Object) :-
 
 /* location define object's location.Synced later with map */
 can_take(Object) :- 
-                    ( weapon(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; food(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; drink(Object,_)/* , player(X,Y,_,_,_,_,_)  , location(X,Y,Object)*/ , get_item_list(Inventory), len(Inventory,X) , X  < 10 -> add_item(Object)
-                    ; medical(Object,_) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; bag(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-                    ; map(Object) /*, player(X,Y,_,_,_,_,_)   , location(X,Y,Object)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
-                    ).
+( object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,food)/* , player(X,Y,_,_,_,_,_)  , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_)  , object_at(Object,X,Y)*/ , get_item_list(Inventory), len(Inventory,X) , X  < 10 -> add_item(Object)
+; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,map) /*, player(X,Y,_,_,_,_,_)   , object_at(Object,X,Y)*/ , get_item_list(Inventory),len(Inventory,X) , X < 10 -> add_item(Object)
+).
 
 /* Drop command */
 drop(Object) :- 
@@ -231,16 +242,16 @@ delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).
 
 /* Use command */
 use(Object) :-  
-                ( is_exist(Object) ->
-                    ( weapon(Object,_) -> set_weapon(Object) , format('You held ~w in your hand .',[Object]),nl, delete_item(Object) 
-                    ; food(Object,Plus) -> increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
-                    ; drink(Object,Plus) -> increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
-                    ; medical(Object,Plus)  -> increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
-                /*  ; bag(Object) -> set_max_inventory ,delete_item(Object) */
-                /*  ; map(Object) -> look_all_map  */
-                    )
-                ; format('~w does not exist in your inventory',[Object]),nl,fail
-                ).
+( is_exist(Object) ->
+  ( object_type(Object,weapon) -> set_weapon(Object) , format('You held ~w in your hand .',[Object]),nl, delete_item(Object) 
+  ; object_type(Object,food)-> object_val(Object,Plus),increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
+  ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
+  ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
+/*  ; bag(Object) -> set_max_inventory ,delete_item(Object) *
+/*  ; map(Object) -> look_all_map  */
+  )
+; format('~w does not exist in your inventory',[Object]),nl,fail
+).
 
 /* Expand command */
 expand(Object) :- bag(Object) , use(Object).
