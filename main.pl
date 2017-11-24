@@ -45,8 +45,16 @@ title:- write('_________________________________________________________________
         write('__00___00__00___00__00___00__00___00__00_______00_00___________00___00__00_____00__00_______00__00____________00___'),nl,
         write('__00___00__00___00__00___00__00___00__00_______00__00__________00___00__00_____00__00_______00__00____________00___'),nl,
         write('__00___00___00000___00___00__0000000__0000000__00___00_________0000000__00_____00__00_______00__0000000__0000000___'),nl,
-        write('___________________________________________________________________________________________________________________'),nl,
-        write('Do you want to load or have a new game (load/new) ?\n'),
+        write('___________________________________________________________________________________________________________________'),nl,nl,nl,
+        write('I heard you volunteer yourself into this so-called game eh?\n'),
+        write('I don\'t know what\'s wrong with your head \n'),
+        write('But since you start this game , you need to finish it by your own hand \n'),
+        write('You need to defeat all enemies to gain victories over your faction \n'),
+        write('I know it will be hard ,but good luck \n'),
+        write('Happy Hunger Games,may the force be with you \n'),
+        write('.... Wrong movie .... \n'),
+        write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),
+        write('Do you want to load or have a new game <load/new> ?\n'),
         read(X),
         (
             X == 'load' -> write('Input the name of the file with the format (ex : \'save.txt\')'),nl ,init_map,read(Y) , loadGame(Y), nl, nl, help
