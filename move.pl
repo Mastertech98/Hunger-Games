@@ -11,7 +11,7 @@ go(Direction) :- currentPosition(A,B),
                  retract(currentPosition(_,_)),
                  asserta(currentPosition(C,D)),!.
 
-go(_) :- write('Tidak bisa kesana gan'), nl.
+go(_) :- write('Can not move there'), nl.
 
 n :- go(n).
 s :- go(s).
