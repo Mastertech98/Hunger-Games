@@ -217,18 +217,18 @@ take(Object) :-
                 ).
 
 can_take(Object) :- 
-( object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
-; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
-; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+( object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z < 20 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z < 20 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z  < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z  < 20 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z < 20 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z < 20 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,Z) , Z < 10 -> add_item(Object),retract(object_at(Object,X,Y))
+; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,Z) , Z < 20 -> add_item(Object),retract(object_at(Object,X,Y))
 ).
 
 /* Drop command */
