@@ -69,15 +69,13 @@ print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'L', !, write('lake').
 print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('forest').
 print_grid_map(_,_) :- !, write('unknown grid map').
 
-print_grid_detail(Row, Col) :- current_position(Row, Col), !, write('your current position').
-print_grid_detail(Row, Col) :- enemy_at(Row, Col, _, _), !, write('enemy').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medicine), !, write('medicine').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('food').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, water), !, write('water').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('weapon').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('backpack').
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('radar').
-print_grid_detail(Row,Col) :- print_grid_map(Row, Col).
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medicine), !, write('theres '), write(X), write(', cure yourself with it!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('theres '),write(X), write(', it seems like it\'s edible'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, water), !, write('theres '),write(X), write(', could definitely cure yout thrist'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('theres '),write(X), write(', attack your enemy with it!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('theres '),write('backpack, extra storage for your inventory!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('theres '),write('radar, will be useful to see the map'), nl.
+print_grid_detail(Row,Col) :- !.
 
 % MAP LOOK - Still unfinished (masih blom kepikiran)
 
@@ -106,15 +104,18 @@ print_current_grid_map_message :- current_position(X,Y), write('You\'re in '), p
 print_current_grid_enemies :- current_position(X,Y), enemy_at(X,Y,_,_), write('You see enemy nearby!'), nl.
 print_current_grid_enemies :- !.
 
+%% print_current_grid_object(Type) :- current_position(X,Y), print_grid_detail(X,Y).
 print_current_grid_object(Type) :- current_position(X,Y), object_at(Name,X,Y),  object_type(Name, Type), write('You got '), write(Type), write(' nearby'), nl.
 print_current_grid_object(_) :- !.
 
 print_current_grid_situation :- print_current_grid_map_message,
                                 print_current_grid_enemies,
-                                print_current_grid_object(medicine),
-                                print_current_grid_object(food),
-                                print_current_grid_object(water),
-                                print_current_grid_object(weapon).
+                                current_position(X,Y),
+                                print_grid_detail(X,Y).
+                                %% print_current_grid_object(medicine),
+                                %% print_current_grid_object(food),
+                                %% print_current_grid_object(water),
+                                %% print_current_grid_object(weapon).
 
 look :- print_current_grid_situation, print_neighbours_code.
 
