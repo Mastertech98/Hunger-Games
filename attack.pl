@@ -19,7 +19,7 @@ attack :- is_enemy_nearby,
 		  has_weapon,
 		  write('attacking enemy nearby '), nl,
 		  calculate_damage(X), kill_all_enemies(R),
-		  write('Anda membunuh  '), write(R), write(' musuh'), nl,
-		  write('tapi nyama berkurang '), write(X), write(' :('), nl, !,
+		  write('You kill '), write(R), write(' enemy'), nl,
+		  write('But unfortunately , your HP decrease '), write(X), write(' :('), nl, !,
 		  check_game_over, check_win.
 attack :- write('no enemy nearby...'), nl.
