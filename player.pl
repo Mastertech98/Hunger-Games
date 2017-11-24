@@ -212,23 +212,23 @@ status :-
 
 /* Take command */
 take(Object) :- 
-                ( can_take(Object), format('You took ~w !',[Object]),nl,!
+                ( can_take(Object) -> format('You took ~w !',[Object]),nl,!
                 ; format('~w does not exist here or your inventory is full',[Object]),nl,fail
                 ).
 
 can_take(Object) :- 
-( object_type(Object,weapon) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,weapon) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,food) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,food) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,drink) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
-; object_type(Object,drink) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
-; object_type(Object,medical) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,medical) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,bag) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,bag) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,map) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,map) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+( object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,weapon) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,food) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
+; object_type(Object,drink) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
+; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,medical) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,bag) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,map) ,current_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
 ).
 
 /* Drop command */
