@@ -57,7 +57,7 @@ object_val(burger,30).
 object_val(rice,35).
 object_val(noodle,30).
 object_val(bread,20).
-object_val(salad,10).
+object_val(salad,15).
 object_val(water,20).
 object_val(tea,30).
 object_val(coffee,25).
@@ -249,7 +249,7 @@ use(Object) :-
   ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
   ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
   ; object_type(Object,bag) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object) 
-  ; object_type(Object,map) -> look_all_map ,format('Whoa, you upgrade your bag with ~w.',[Object]) 
+  ; object_type(Object,map) -> look_all_map ,format('You have seen the whole map with ~w.',[Object]) 
   )
 ; format('~w does not exist in your inventory',[Object]),nl,fail
 ).
