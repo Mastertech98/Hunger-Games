@@ -73,7 +73,7 @@ retractAll :- retractall(current_position(_,_)),retract(player(_,_,_,_,_,_,_)),r
 all_retract :- retractAll.
 
 makeAssertObj([],[],[]) :- !.
-makeAssertObj([A|B],[C|D],[E|F]) :- asserta(object_at(A,C,E)), makeAssertEnemy(B,D,F). 
+makeAssertObj([A|B],[C|D],[E|F]) :- asserta(object_at(A,C,E)), makeAssertObj(B,D,F). 
 
 makeAssertEnemy([],[],[],[]) :- !.
 makeAssertEnemy([A|B],[C|D],[E|F],[G|H]) :- asserta(enemy_at(A,C,E,G)), makeAssertEnemy(B,D,F,H). 
