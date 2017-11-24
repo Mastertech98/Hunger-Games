@@ -31,5 +31,6 @@ Issue
 - Harus dibedain tampilannya antara gk bisa atk krn gk ada musuh sama gk ada weapon
 - Gerak musuh belum dirandomin
 - Saat move,kalau liat food maunya ditampilin nama food nya
+- Pas look ketemu object masi nanya yes?
 - Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk(blm)
  
