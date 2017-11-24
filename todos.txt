@@ -27,3 +27,5 @@ PEMBAGIAN TUGAS :
 - Map dan Attack
 - Save dan load
 
+Issue :
+- If can not move ,still display the situation
