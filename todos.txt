@@ -27,10 +27,9 @@ PEMBAGIAN TUGAS :
 - Map dan Attack
 - Save dan load
 
-Issue :
-- Kalau ga bisa move ,masi tampiliin sekitarnya
+Issue 
 - Harus dibedain tampilannya antara gk bisa atk krn gk ada musuh sama gk ada weapon
 - Gerak musuh belum dirandomin
 - Saat move,kalau liat food maunya ditampilin nama food nya
-- Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk
+- Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk(blm)
  
