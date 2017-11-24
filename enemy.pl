@@ -9,7 +9,7 @@ number_of_enemies(10).
 seede :- asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)).
 
 generate_random_enemies(0) :- !.
-generate_random_enemies(X) :- random(1, 10, Row), random(1, 20, Col), random(30, 100, Power),
+generate_random_enemies(X) :- random(1, 10, Row), random(1, 20, Col), random(5, 20, Power),
 	                          asserta(enemy_at(Row,Col,Power,X)),
 	                          NextX is X-1,
 	                          generate_random_enemies(NextX), !.

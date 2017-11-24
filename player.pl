@@ -93,7 +93,7 @@ default_health(100).
 default_hunger(100).
 default_thirst(100).
 default_position(0,0).
-default_weapon(abc).
+default_weapon(none).
 default_inventory([]).
 
 /* Initialize Player */

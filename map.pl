@@ -124,3 +124,6 @@ print_current_location_detail :- write('yihaaaaaaa').
 is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
 
 % MAP LOOK - END
+
+map :- is_exist(radar), !, print_map.
+map :- write('You need radar to see the map!'), !.
