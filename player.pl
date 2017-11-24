@@ -1,6 +1,6 @@
 :- dynamic(player/7).
 /* newwww */
-:- dynamic(object_at/2).
+:- dynamic(object_at/3).
 
 :- dynamic(has_upgraded/1).
 
@@ -42,7 +42,7 @@ object_type(wine,drink).
 object_type(medicalkit,medical).
 object_type(lotus,medical).
 object_type(backpack,bag).
-object_type(radars,map).
+object_type(radar,map).
 
 /* Object val and it's name */
 object_val(axe,50).
@@ -69,6 +69,12 @@ object_val(backpack,0).
 object_val(radar,0).
 
 has_upgraded(0).
+
+gen_obj(_, 0) :- !.
+gen_obj(X, T) :- random(1, 10, A), random(1, 20, B), write(A), write(' '), write(B), nl, asserta(object_at(X,A,B)), Ti is T-1, gen_obj(X, Ti), !.
+
+generate_random_obj :- gen_obj(rice, 10), gen_obj(axe, 10), gen_obj(tea, 10), gen_obj(medicalkit, 10), gen_obj(radar, 2), gen_obj(backpack, 5).
+
 /* --------------------------- PLAYER --------------------------- */
 
 /* Rules for printlist */
@@ -87,7 +93,7 @@ default_health(100).
 default_hunger(100).
 default_thirst(100).
 default_position(0,0).
-default_weapon('none').
+default_weapon(abc).
 default_inventory([]).
 
 /* Initialize Player */
@@ -164,8 +170,9 @@ set_weapon(Weapon):-
     asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 get_weapon(Weapon):-
-    player(_,_,_,_,_,Weapon,_).
+    player(_,_,_,_,_,Weapon,_), !.
 
+has_weapon :- get_weapon(Weapon), write('weapon q '), write(Weapon), nl, Weapon \== none, !.
 
 /* Inventory */
 add_item(Item):- /* Use for command Take */

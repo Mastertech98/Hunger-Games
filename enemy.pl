@@ -1,6 +1,12 @@
 :- dynamic(enemy_at/4).
 
-number_of_enemies(10).
+number_of_enemies(0).
+
+%% enemy_at(1, 1, 12, 12).
+%% enemy_at(1, 1, 12, 12).
+%% enemy_at(1, 1, 12, 12).
+
+seede :- asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)).
 
 generate_random_enemies(0) :- !.
 generate_random_enemies(X) :- random(1, 10, Row), random(1, 20, Col), random(30, 100, Power),

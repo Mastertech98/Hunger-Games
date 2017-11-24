@@ -52,10 +52,13 @@ print_grid_code(Row,Col) :- enemy_at(Row,Col,_, _), !, write('E').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,medicine), !, write('m').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,food), !, write('f').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,water), !, write('w').
-print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,weapon), !, write('x').
+print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,weapon), !, write('s').
+print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,bag), !, write('b').
+print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,map), !, write('r').
+%% print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,radar), !, write('r').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == '#', !, write('#').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'O', !, write('-').
-print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('F').
+print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('^').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'L', !, write('~').
 print_grid_code(_,_) :- !, write('<').
 % MAP PRINT - END
@@ -72,6 +75,8 @@ print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medicine),
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('food').
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, water), !, write('water').
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('weapon').
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('backpack').
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('radar').
 print_grid_detail(Row,Col) :- print_grid_map(Row, Col).
 
 % MAP LOOK - Still unfinished (masih blom kepikiran)
@@ -115,5 +120,7 @@ look :- print_current_grid_situation, print_neighbours_code.
 
 print_current_location_detail :- current_position(Row, Col), write('You enter '), print_grid_map(Row, Col), nl.
 print_current_location_detail :- write('yihaaaaaaa').
+
+is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
 
 % MAP LOOK - END

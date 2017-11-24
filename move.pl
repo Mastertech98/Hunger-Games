@@ -13,7 +13,11 @@ go(Direction) :- current_position(A,B),
 
 go(_) :- write('Can not move there'), nl.
 
-n :- go(n), print_current_grid_situation, print_current_grid_neighbours.
-s :- go(s), print_current_grid_situation, print_current_grid_neighbours.
-w :- go(w), print_current_grid_situation, print_current_grid_neighbours.
-e :- go(e), print_current_grid_situation, print_current_grid_neighbours.
+move_detail :- print_current_grid_situation, print_current_grid_neighbours.
+move_cost :- decrease_hunger(1), decrease_thirst(1).
+%% check_game_state :- check_game_over, check_win.
+
+n :- go(n), move_detail, move_cost, check_game_state.
+s :- go(s), move_detail, move_cost, check_game_state.
+w :- go(w), move_detail, move_cost, check_game_state.
+e :- go(e), move_detail, move_cost, check_game_state.
