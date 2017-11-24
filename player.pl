@@ -211,18 +211,18 @@ take(Object) :-
 
 /* location define object's location.Synced later with map */
 can_take(Object) :- 
-( object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,weapon) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,food)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,food)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
-; object_type(Object,drink)/* , player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
-; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,medical) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,bag) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,map) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,map) /*, player(X,Y,_,_,_,_,_),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+( object_type(Object,weapon) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,weapon) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,food)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,food)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,drink)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
+; object_type(Object,drink)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
+; object_type(Object,medical) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,medical) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,bag) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,bag) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,map) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,map) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
 ).
 
 /* Drop command */
@@ -248,8 +248,8 @@ use(Object) :-
   ; object_type(Object,food)-> object_val(Object,Plus),increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object)
   ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object)
   ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl, delete_item(Object)
-  ; bag(Object) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object) 
-  ; map(Object) -> look_all_map ,format('Whoa, you upgrade your bag with ~w.',[Object]) 
+  ; object_type(Object,bag) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object) 
+  ; object_type(Object,map) -> look_all_map ,format('Whoa, you upgrade your bag with ~w.',[Object]) 
   )
 ; format('~w does not exist in your inventory',[Object]),nl,fail
 ).
@@ -257,4 +257,4 @@ use(Object) :-
 set_max_inventory :- retract(has_upgraded(_)) , asserta(has_upgraded(1)).
 
 /* Expand command */
-expand(Object) :- bag(Object) , use(Object).
+expand(Object) :- object_type(Object,bag) , use(Object).
