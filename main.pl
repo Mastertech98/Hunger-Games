@@ -66,7 +66,7 @@ title:- write('_________________________________________________________________
 		write('Do you want to load or have a new game (load/new) ?\n'), 
 		read(X),
 		(
-			X == 'load' -> loadGame
+			X == 'load' -> write('Input the name of the file with the format (ex : save.txt)'),nl ,read(Y) , loadGame(Y)
 		   ;X == 'new' -> initGame		
 		).
 		
