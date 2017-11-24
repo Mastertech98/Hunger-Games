@@ -50,6 +50,8 @@ title:- write('_________________________________________________________________
            ;X == 'new' -> initGame, nl, nl, help
         ).
 
+map :- print_map.
+
 start :- title.
 
 initGame :- init_map, init_enemy, init_player.

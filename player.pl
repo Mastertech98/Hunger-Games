@@ -216,25 +216,24 @@ take(Object) :-
                 ; format('~w does not exist here or your inventory is full',[Object]),nl,fail
                 ).
 
-/* location define object's location.Synced later with map */
 can_take(Object) :- 
-( object_type(Object,weapon) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,weapon) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,food)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,food)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,drink)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
-; object_type(Object,drink)/* ,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
-; object_type(Object,medical) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,medical) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,bag) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,bag) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
-; object_type(Object,map) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
-; object_type(Object,map) /*,get_position(X,Y),object_at(Object,X,Y)*/,get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+( object_type(Object,weapon) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,weapon) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,food) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,food) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,drink) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X  < 10 -> add_item(Object)
+; object_type(Object,drink) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X  < 20 -> add_item(Object)
+; object_type(Object,medical) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,medical) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,bag) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,bag) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
+; object_type(Object,map) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(0),len(Inventory,X) , X < 10 -> add_item(Object)
+; object_type(Object,map) ,get_position(X,Y),object_at(Object,X,Y),get_item_list(Inventory),has_upgraded(1),len(Inventory,X) , X < 20 -> add_item(Object)
 ).
 
 /* Drop command */
 drop(Object) :- 
-                ( is_exist(Object) -> delete_item(Object) /* drop should return item to map,not yet made*/, format('You drop ~w !',[Object]),nl,!
+                ( is_exist(Object) -> delete_item(Object) ,get_position(X,Y),asserta(object_at(Object,X,Y)),format('You drop ~w !',[Object]),nl,!
                 ; format('~w does not exist in your inventory',[Object]),nl,fail
                 ).
 
