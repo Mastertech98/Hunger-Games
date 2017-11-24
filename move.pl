@@ -11,7 +11,7 @@ go(Direction) :- current_position(A,B),
                  retract(current_position(_,_)),
                  asserta(current_position(C,D)),!.
 
-go(_) :- write('Tidak bisa kesana gan'), nl.
+go(_) :- write('Can not move there'), nl.
 
 n :- go(n), print_current_grid_situation, print_current_grid_neighbours.
 s :- go(s), print_current_grid_situation, print_current_grid_neighbours.
