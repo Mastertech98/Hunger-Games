@@ -1,6 +1,6 @@
 :- dynamic(enemy_at/4).
 
-number_of_enemies(0).
+number_of_enemies(10).
 
 %% enemy_at(1, 1, 12, 12).
 %% enemy_at(1, 1, 12, 12).

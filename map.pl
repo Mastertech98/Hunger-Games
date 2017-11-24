@@ -8,7 +8,7 @@
 
 current_position(1,1).
 
-valid(A,B) :- !, A >= 1, A =< 20, B >= 1, B =< 20.
+valid(A,B) :- map_at(A,B,X), X \== '#'.
 
 % MAP INITIALIZATION - START
 make_map_from_list(_, _, []) :- !.
