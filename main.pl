@@ -4,4 +4,4 @@
 start :- initGame.
 
 
-initGame :- initMap, initEnemy, printMap.
+initGame :- init_map, init_enemy, printMap.

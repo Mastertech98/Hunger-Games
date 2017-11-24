@@ -1,7 +1,27 @@
 :- dynamic(player/7).
 :- dynamic(location/3).
 
+/* newwww */
+:- dynamic(object_at/2).
+
 /* --------------------------- OBJECT --------------------------- */
+
+/*
+    NEW OBJECT:
+    object_type(NAME, TYPE)
+    object_at(NAME, X, Y)
+    object_val(NAME, VAL)
+
+    contoh:
+    object_type(seblak, food).
+    object_at(seblak, 1, 2).
+    object_val(seblak, 20) - dimana val dari food itu adalah jumlah hp yg naik kalo dikonsumsi
+*/
+object_type(seblak, food).
+object_at(seblak, 1, 2).
+object_val(seblak, 20).
+
+/* end */
 
 /* Weapon and its attack */
 weapon(axe,50).
@@ -46,7 +66,7 @@ printlist([A|B]) :- write(' o '),write(A),nl,printlist(B).
 len([], LenResult):-
     LenResult is 0.
 
-len([X|Y], LenResult):-
+len([_|Y], LenResult):-
     len(Y, L), LenResult is L + 1.
 
 /* Default attribute for player */
@@ -88,7 +108,7 @@ get_health(Health):-
     player(_,_,Health,_,_,_,_).
 
 set_health(Health):-
-    retract(player(X,Y,CurrHealth,Hunger,Thirst,Weapon,Inventory)),
+    retract(player(X,Y,_,Hunger,Thirst,Weapon,Inventory)),
     asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 
@@ -107,7 +127,7 @@ get_hunger(Hunger):-
     player(_,_,_,Hunger,_,_,_).
 
 set_hunger(Hunger):-
-    retract(player(X,Y,Health,CurrHunger,Thirst,Weapon,Inventory)),
+    retract(player(X,Y,Health,_,Thirst,Weapon,Inventory)),
     asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 
@@ -126,13 +146,13 @@ get_thirst(Thirst):-
     player(_,_,_,_,Thirst,_,_).
 
 set_thirst(Thirst):-
-    retract(player(X,Y,Health,Hunger,CurrThirst,Weapon,Inventory)),
+    retract(player(X,Y,Health,Hunger,_,Weapon,Inventory)),
     asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 
 /* Weapon */
 set_weapon(Weapon):-
-    retract(player(X,Y,Health,Hunger,Thirst,CurrWeapon,Inventory)),
+    retract(player(X,Y,Health,Hunger,Thirst,_,Inventory)),
     asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 get_weapon(Weapon):-
@@ -154,8 +174,8 @@ get_position(X,Y):-
     player(X,Y,_,_,_,_,_).
 
 set_position(X,Y):-
-    retract(player(CurrX,CurrY,Health,Hunger,Thirst,Weapon,Inventory)),
-    asserta(player(X,Y,Health,Hunger,Thirst,Weapon,NewInventory)).
+    retract(player(_,_,Health,Hunger,Thirst,Weapon,Inventory)),
+    asserta(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)).
 
 
 /* Status command */
