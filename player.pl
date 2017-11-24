@@ -71,7 +71,7 @@ object_val(radar,0).
 has_upgraded(0).
 
 gen_obj(_, 0) :- !.
-gen_obj(X, T) :- random(1, 10, A), random(1, 20, B), write(A), write(' '), write(B), nl, asserta(object_at(X,A,B)), Ti is T-1, gen_obj(X, Ti), !.
+gen_obj(X, T) :- random(1, 10, A), random(1, 20, B), asserta(object_at(X,A,B)), Ti is T-1, gen_obj(X, Ti), !.
 
 generate_random_obj :- gen_obj(rice, 10), gen_obj(axe, 10), gen_obj(tea, 10), gen_obj(medicalkit, 10), gen_obj(radar, 2), gen_obj(backpack, 5).
 

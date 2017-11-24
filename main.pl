@@ -54,4 +54,4 @@ map :- print_map.
 
 start :- title.
 
-initGame :- init_map, init_enemy, init_player.
+initGame :- init_map, init_enemy, init_player, generate_random_obj.
