@@ -4,6 +4,7 @@
 :- include('player.pl').
 :- include('attack.pl').
 :- include('game.pl').
+:- include('saveload.pl').
 
 quit:-halt.
 help:-  write('Available commands:\n'),
@@ -19,6 +20,7 @@ help:-  write('Available commands:\n'),
         write('expand(Object) --- expand inventory if you have item backpack\n'),
         write('attack         --- attack enemy that crosses your path\n'),
         write('status         --- show your status\n'),
+        write('nap            --- take a nap to renew health but decrease hunger and thirst\n'),
         write('save(Filename) --- save your game\n'),
         write('load(Filename) --- load previously saved game\n'),
         write('Legends:\n'),
