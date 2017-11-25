@@ -6,7 +6,12 @@
 :- include('game.pl').
 :- include('saveload.pl').
 
-quit:-halt.
+quit2:-write('are you sure to quit [yes/no]'),nl, 
+		read(Y), 
+		(
+			Y=='yes' -> halt
+			;Y == 'no' -> command
+		).
 help:-  write('Available commands:\n'),
         write('start          --- start the game!\n'),
         write('help           --- show available commands\n'),
@@ -52,13 +57,16 @@ title:- write('_________________________________________________________________
         write('I know it will be hard ,but good luck \n'),
         write('Happy Hunger Games,may the force be with you \n'),
         write('.... Wrong movie .... \n'),
-        write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),
-        write('Do you want to load or have a new game <load/new> ?\n'),
-        read(X),
-        (
-            X == 'load' -> write('Input the name of the file with the format (ex : \'save\')'),nl ,init_map,read(Y) , loadGame(Y), nl, nl, help
-           ;X == 'new' -> initGame, nl, nl, help
-        ).
+        write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),command.
+command :-  write('Do you want to load,have a new game or quit from the game [load/new/quit] ?\n'),
+			read(X),
+			(
+				X == 'load' -> write('Input the name of the file with the format (ex : \'save\')'),nl ,init_map,read(Y) , loadGame(Y), nl, nl, help
+			   ;X == 'new' -> initGame, nl, nl, help
+			   ;X == 'quit' -> quit2
+			).
+			
+
 
 start :- title.
 
