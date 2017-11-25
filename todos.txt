@@ -31,4 +31,5 @@ Issue
 - Gerak musuh belum dirandomin (masi blm)
 - Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk(blm)
 - water sama medicine gk tampil di map
-- di load, kalo file load ga ada, belum bisa memunculkan pesan kesalahan
+- di load, kalo file load ga ada, belum bisa memunculkan pesan kesalahan.
+- load belum looping
