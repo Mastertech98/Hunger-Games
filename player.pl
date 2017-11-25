@@ -1,24 +1,8 @@
 :- dynamic(player/7).
-/* newwww */
 :- dynamic(object_at/3).
-
 :- dynamic(has_upgraded/1).
 
 /* --------------------------- OBJECT --------------------------- */
-
-/*
-    NEW OBJECT:
-    object_type(NAME, TYPE)
-    object_at(NAME, X, Y)
-    object_val(NAME, VAL)
-
-    contoh:
-    object_type(seblak, food).
-    object_at(seblak, 1, 2).
-    object_val(seblak, 20) - dimana val dari food itu adalah jumlah hp yg naik kalo dikonsumsi
-*/
-
-/* end */
 
 /* Object type and it's name */
 object_type(axe,weapon).
@@ -68,8 +52,10 @@ object_val(lotus,50).
 object_val(backpack,0).
 object_val(radar,0).
 
+/* Rules for inventory has been upgraded or not */
 has_upgraded(0).
 
+/* Generate random object on map */
 gen_obj(_, 0) :- !.
 gen_obj(X, T) :- random(1, 10, A), random(1, 20, B), asserta(object_at(X,A,B)), Ti is T-1, gen_obj(X, Ti), !.
 

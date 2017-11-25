@@ -16,7 +16,7 @@ kill_all_enemies(Length) :- current_position(X,Y),
 							retractall(enemy_at(X,Y,_,_)).
 
 is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
-is_enemy_nearby :- write('Theres no enemy nearby...'), fail.
+is_enemy_nearby :- write('There is no enemy nearby...'), fail.
 
 has_weapon :- get_weapon(Weapon), Weapon \== none, !.
 has_weapon :- write('Apperently you have no Weapon.Go get one!'), nl, fail.
