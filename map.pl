@@ -74,7 +74,7 @@ print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, drink), !,
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('theres '),write(X), write(', attack your enemy with it!'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('theres '),write('backpack, extra storage for your inventory!'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('theres '),write('radar, will be useful to see the map'), nl.
-print_grid_detail(Row,Col) :- !.
+print_grid_detail(_,_) :- !.
 
 print_neighbours_code :- current_position(Row, Col),
                          A is Row-1, B is Row+1, C is Col-1, D is Col+1,
@@ -91,10 +91,10 @@ print_current_grid_neighbours :- current_position(X,Y), !,
 
 print_current_grid_map_message :- current_position(X,Y), write('You\'re in '), print_grid_map(X,Y), nl.
 
-print_current_grid_enemies :- current_position(X,Y), enemy_at(X,Y,_,_), write('You see enemy nearby!'), nl.
+print_current_grid_enemies :- current_position(X,Y), enemy_at(X,Y,_,_), !, write('You see enemy nearby!'), nl.
 print_current_grid_enemies :- !.
 
-print_current_grid_situation :- print_current_grid_map_message,
+print_current_grid_situation :- !, print_current_grid_map_message,
                                 print_current_grid_enemies,
                                 current_position(X,Y),
                                 print_grid_detail(X,Y).
