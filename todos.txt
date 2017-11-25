@@ -28,7 +28,7 @@ PEMBAGIAN TUGAS :
 - Map dan Attack
 - Save dan load
 
-Issue 
+Issue
 - Pas musuh atk minta true? sama masi banyak pas take() bs take cuman jadi no
 - di load, kalo file load ga ada, belum bisa memunculkan pesan kesalahan.
 - load belum looping
