@@ -50,14 +50,7 @@ title:- write('_________________________________________________________________
         write('__00___00__00___00__00___00__00___00__00_______00__00__________00___00__00_____00__00_______00__00____________00___'),nl,
         write('__00___00___00000___00___00__0000000__0000000__00___00_________0000000__00_____00__00_______00__0000000__0000000___'),nl,
         write('___________________________________________________________________________________________________________________'),nl,nl,nl,
-        write('I heard you volunteer yourself into this so-called game eh?\n'),
-        write('I don\'t know what\'s wrong with your head \n'),
-        write('But since you start this game , you need to finish it by your own hand \n'),
-        write('You need to defeat all enemies to gain victories over your faction \n'),
-        write('I know it will be hard ,but good luck \n'),
-        write('Happy Hunger Games,may the force be with you \n'),
-        write('.... Wrong movie .... \n'),
-        write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),command.
+		command.
 command :-  write('Do you want to load,have a new game or quit from the game [load/new/quit] ?\n'),
 			read(X),
 			(
@@ -70,4 +63,11 @@ command :-  write('Do you want to load,have a new game or quit from the game [lo
 
 start :- title.
 
-initGame :- init_map, init_enemy, init_player, generate_random_obj.
+initGame :- write('\n\n\nI heard you volunteer yourself into this so-called game eh?\n'),sleep(3),
+			write('I don\'t know what\'s wrong with your head \n'),sleep(3),
+			write('But since you start this game , you need to finish it by your own hand \n'),sleep(3),
+			write('You need to defeat all enemies to gain victories over your faction \n'),sleep(3),
+			write('I know it will be hard ,but good luck \n'),sleep(3),
+			write('Happy Hunger Games,may the force be with you \n'),sleep(3),
+			write('.... Wrong movie .... \n'),sleep(2),
+			write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),sleep(3),init_map, init_enemy, init_player, generate_random_obj.
