@@ -248,12 +248,12 @@ delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).
 /* Use command */
 use(Object) :-  
 ( is_exist(Object) ->
-  ( object_type(Object,weapon) -> set_weapon(Object) , format('You held ~w in your hand .',[Object]),nl, delete_item(Object),take_damage,random_move_all_enemies 
-  ; object_type(Object,food)-> object_val(Object,Plus),increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl,take_damage,random_move_all_enemies, delete_item(Object)
-  ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl,take_damage,random_move_all_enemies, delete_item(Object)
-  ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl,take_damage,random_move_all_enemies, delete_item(Object)
-  ; object_type(Object,bag) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),take_damage,random_move_all_enemies,delete_item(Object) 
-  ; object_type(Object,map) -> look_all_map ,format('You have seen the whole map with ~w.',[Object]),take_damage,random_move_all_enemies
+  ( object_type(Object,weapon) -> set_weapon(Object) , format('You held ~w in your hand .',[Object]),nl, delete_item(Object),take_damage,random_move_all_enemies ,!
+  ; object_type(Object,food)-> object_val(Object,Plus),increase_hunger(Plus) , format('Yummy.. I love ~w.Food is important to survive. ',[Object]),nl, delete_item(Object),take_damage,random_move_all_enemies,!
+  ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object),take_damage,random_move_all_enemies,!
+  ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl,delete_item(Object),take_damage,random_move_all_enemies,!
+  ; object_type(Object,bag) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object), take_damage,random_move_all_enemies,!
+  ; object_type(Object,map) -> look_all_map ,format('You have seen the whole map with ~w.',[Object]),take_damage,random_move_all_enemies,!
   )
 ; format('~w does not exist in your inventory',[Object]),nl,take_damage,random_move_all_enemies,fail
 ).
