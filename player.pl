@@ -258,7 +258,7 @@ use(Object) :-
   ; object_type(Object,drink) -> object_val(Object,Plus),increase_thirst(Plus) , format('Glad to have ~w.Water is important to survive.',[Object]),nl, delete_item(Object),take_damage,random_move_all_enemies,!
   ; object_type(Object,medical) -> object_val(Object,Plus),increase_health(Plus) , format('You treated your wounds with ~w.',[Object]),nl,delete_item(Object),take_damage,random_move_all_enemies,!
   ; object_type(Object,bag) -> set_max_inventory,format('Whoa, you upgrade your bag with ~w.',[Object]),delete_item(Object), take_damage,random_move_all_enemies,!
-  ; object_type(Object,map) -> look_all_map ,format('You have seen the whole map with ~w.',[Object]),take_damage,random_move_all_enemies,!
+  ; object_type(Object,map) -> map ,format('You have seen the whole map with ~w.',[Object]),take_damage,random_move_all_enemies,!
   )
 ; format('~w does not exist in your inventory',[Object]),nl,take_damage,random_move_all_enemies,fail
 ).
@@ -266,7 +266,9 @@ use(Object) :-
 set_max_inventory :- retract(has_upgraded(_)) , asserta(has_upgraded(1)).
 
 /* Expand command */
-expand(Object) :- object_type(Object,bag) , use(Object).
+expand(Object) :- ( object_type(Object,bag) -> use(Object)
+                  ; write('You need backpack to expand your inventory')
+                  ).
 
 /* Nap command */
 nap :- increase_health(20),decrease_thirst(15),decrease_hunger(15),
