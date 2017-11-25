@@ -19,7 +19,7 @@ is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
 is_enemy_nearby :- write('Theres no enemy nearby...'), fail.
 
 has_weapon :- get_weapon(Weapon), Weapon \== none, !.
-has_weapon :- write('You got no weapon tho'), nl, fail.
+has_weapon :- write('Apperently you have no Weapon.Go get one!'), nl, fail.
 
 take_damage :- calculate_damage(X), X \== 0, !, write('You took '), write(X), write(' damage...'),check_game_state.
 take_damage :- !.
@@ -27,7 +27,7 @@ take_damage :- !.
 attack :- is_enemy_nearby,
 		  has_weapon,
 		  !,
-		  write('attacking enemy nearby '), nl,
+		  write('Attacking enemy nearby '), nl,
 		  take_damage, !, nl, kill_all_enemies(R),
 		  write('You kill '), write(R), write(' enemy'), nl,
 		  random_move_all_enemies,

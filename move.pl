@@ -14,7 +14,7 @@ go(Direction) :- current_position(A,B),
                  random_move_all_enemies, !,
                  check_game_state.
 
-go(_) :- write('Can not move there'), nl.
+go(_) :- write('Restricted zone,can not move there'), nl.
 
 move_detail :- print_current_grid_situation, print_current_grid_neighbours.
 move_cost :- decrease_hunger(5), decrease_thirst(5).

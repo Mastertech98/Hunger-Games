@@ -68,12 +68,12 @@ print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'L', !, write('lake').
 print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('forest').
 print_grid_map(_,_) :- !, write('unknown grid map').
 
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medical), !, write('theres '), write(X), write(', cure yourself with it!'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('theres '),write(X), write(', it seems like it\'s edible'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, drink), !, write('theres '),write(X), write(', could definitely cure yout thrist'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('theres '),write(X), write(', attack your enemy with it!'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('theres '),write('backpack, extra storage for your inventory!'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('theres '),write('radar, will be useful to see the map'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medical), !, write('There is '), write(X), write(', cure yourself with it!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('There is '),write(X), write(', it seems like it\'s edible'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, drink), !, write('There is '),write(X), write(', could definitely cure yout thrist'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('There is '),write(X), write(', attack your enemy with it!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('There is '),write('backpack, extra storage for your inventory!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('There is '),write('radar, will be useful to see the map'), nl.
 print_grid_detail(_,_) :- !.
 
 print_neighbours_code :- current_position(Row, Col),
@@ -83,10 +83,10 @@ print_neighbours_code :- current_position(Row, Col),
                          print_grid_code(B, C), write(' '), print_grid_code(B, Col), write(' '), print_grid_code(B, D), nl.
 
 print_current_grid_neighbours :- current_position(X,Y), !,
-        A is X-1, write('on your north there\'s '), print_grid_map(A, Y), nl,
-        B is Y-1, write('on your west there\'s '), print_grid_map(X, B), nl,
-        C is X+1, write('on your south there\'s '), print_grid_map(C, Y), nl,
-        D is Y+1, write('on your east there\'s '), print_grid_map(X, D), nl,
+        A is X-1, write('On your north there\'s '), print_grid_map(A, Y), nl,
+        B is Y-1, write('On your west there\'s '), print_grid_map(X, B), nl,
+        C is X+1, write('On your south there\'s '), print_grid_map(C, Y), nl,
+        D is Y+1, write('On your east there\'s '), print_grid_map(X, D), nl,
         !.
 
 print_current_grid_map_message :- current_position(X,Y), write('You\'re in '), print_grid_map(X,Y), nl.

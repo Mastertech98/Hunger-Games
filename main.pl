@@ -9,7 +9,7 @@
 quit2:-write('are you sure to quit [yes/no]'),nl, 
 		read(Y), 
 		(
-			Y=='yes' -> write('bye coward..'),nl,sleep(3),halt
+			Y=='yes' -> write('You have brought shame to your faction..'),nl,sleep(3),halt
 			;Y == 'no' -> command
 		).
 help:-  write('Available commands:\n'),
