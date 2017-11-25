@@ -76,7 +76,7 @@ gen_obj(X, T) :- random(1, 10, A), random(1, 20, B), asserta(object_at(X,A,B)), 
 generate_random_obj :- gen_obj(rice, 2), gen_obj(noodle, 2), gen_obj(bread, 2), gen_obj(salad, 2), gen_obj(burger, 2),
                        gen_obj(axe, 2), gen_obj(baton, 2), gen_obj(blowgun, 2), gen_obj(crossbow, 2), gen_obj(knife, 1), gen_obj(machete, 1),
                        gen_obj(tea, 2), gen_obj(water, 2), gen_obj(coffee, 2), gen_obj(cola, 2), gen_obj(wine, 2),
-                       gen_obj(medicalkit, 5), gen_obj(lotus, 5)
+                       gen_obj(medicalkit, 5), gen_obj(lotus, 5),
                        gen_obj(radar, 2),
                        gen_obj(backpack, 5).
 
