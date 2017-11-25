@@ -23,3 +23,8 @@ In Windows :
 4) Now you can play game and have fun :)
 
 In Unix :
+1) First, install gnu prolog from http://www.gprolog.org/#download
+2) Open your terminal, and go to the prolog file directory
+3) type in: gprolog
+4) to compile / consult, type in: consult(file name), for example consult('hehe.pl')
+5) Enjoy the game
