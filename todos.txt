@@ -21,6 +21,7 @@ inventory nya
 -- func 2
 
 
+
 PEMBAGIAN TUGAS :
 - Player dan command yang berhubungan
 - Enemy dan functionality nya
@@ -29,6 +30,5 @@ PEMBAGIAN TUGAS :
 
 Issue 
 - Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk(blm)
-- water sama medicine gk tampil di map
 - di load, kalo file load ga ada, belum bisa memunculkan pesan kesalahan.
 - load belum looping

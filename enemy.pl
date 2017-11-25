@@ -14,10 +14,10 @@ generate_random_enemies(X) :- random(1, 10, Row), random(1, 20, Col), random(5, 
 
 init_enemy :- number_of_enemies(X), generate_random_enemies(X).
 
-movv(X, N) :- N == 1, !, enemy_at(Row, Col, _, X), NewRow is Row+1, valid(NewRow, Col), update_enemy_position(NewRow, Col, X).
-movv(X, N) :- N == 2, !, enemy_at(Row, Col, _, X), NewRow is Row-1, valid(NewRow, Col), update_enemy_position(NewRow, Col, X).
-movv(X, N) :- N == 3, !, enemy_at(Row, Col, _, X), NewCol is Col+1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
-movv(X, N) :- N == 4, !, enemy_at(Row, Col, _, X), NewCol is Col-1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
+movv(X, N) :- N == 1, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewRow is Row+1, valid(NewRow, Col), update_enemy_position(NewRow, Col, X).
+movv(X, N) :- N == 2, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewRow is Row-1, valid(NewRow, Col), update_enemy_position(NewRow, Col, X).
+movv(X, N) :- N == 3, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewCol is Col+1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
+movv(X, N) :- N == 4, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewCol is Col-1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
 
 move_enemy([]) :- !.
 move_enemy([A|B]) :- random(1,4,N), movv(A, N), move_enemy(B).

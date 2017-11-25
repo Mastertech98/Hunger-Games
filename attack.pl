@@ -21,15 +21,17 @@ is_enemy_nearby :- write('Theres no enemy nearby...'), fail.
 has_weapon :- get_weapon(Weapon), Weapon \== none, !.
 has_weapon :- write('You got no weapon tho'), nl, fail.
 
+take_damage :- calculate_damage(X), X \== 0, !, write('You took '), write(X), write(' damage...').
+
 attack :- is_enemy_nearby,
 		  has_weapon,
+		  !,
 		  write('attacking enemy nearby '), nl,
-		  calculate_damage(X), kill_all_enemies(R),
+		  take_damage, !, nl, kill_all_enemies(R),
 		  write('You kill '), write(R), write(' enemy'), nl,
-		  write('But unfortunately , your HP decrease '), write(X), write(' :('), nl, !,
 		  random_move_all_enemies,
 		  check_game_over, check_win.
-attack :- !.
+attack :- take_damage, !.
 
 
 
