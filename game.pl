@@ -1,4 +1,4 @@
-%% quit:-title.
+quit:-title.
 is_game_over :- get_health(X), X =< 0, !.
 is_game_over :- get_hunger(X), X =< 0, !.
 is_game_over :- get_thirst(X), X =< 0, !.

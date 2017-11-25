@@ -9,7 +9,7 @@
 quit2:-write('are you sure to quit [yes/no]'),nl, 
 		read(Y), 
 		(
-			Y=='yes' -> halt
+			Y=='yes' -> write('bye coward..'),nl,sleep(3),halt
 			;Y == 'no' -> command
 		).
 help:-  write('Available commands:\n'),
@@ -63,12 +63,12 @@ command :-  write('Do you want to load,have a new game or quit from the game [lo
 start :- title.
 
 initGame :- 
-   %%          write('\n\n\nI heard you volunteer yourself into this so-called game eh?\n'),sleep(3),
-			%% write('I don\'t know what\'s wrong with your head \n'),sleep(3),
-			%% write('But since you start this game , you need to finish it by your own hand \n'),sleep(3),
-			%% write('You need to defeat all enemies to gain victories over your faction \n'),sleep(3),
-			%% write('I know it will be hard ,but good luck \n'),sleep(3),
-			%% write('Happy Hunger Games,may the force be with you \n'),sleep(3),
-			%% write('.... Wrong movie .... \n'),sleep(2),
-			%% write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),sleep(3),
+			write('\n\n\nI heard you volunteer yourself into this so-called game eh?\n'),sleep(3),
+			write('I don\'t know what\'s wrong with your head \n'),sleep(3),
+			write('But since you start this game , you need to finish it by your own hand \n'),sleep(3),
+			write('You need to defeat all enemies to gain victories over your faction \n'),sleep(3),
+			write('I know it will be hard ,but good luck \n'),sleep(3),
+			write('Happy Hunger Games,may the force be with you \n'),sleep(3),
+			write('.... Wrong movie .... \n'),sleep(2),
+			write('Happy Hunger Games! And may the odds be ever in your favor.\n\n\n'),sleep(3),
             init_map, init_enemy, init_player, generate_random_obj.
