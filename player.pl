@@ -172,8 +172,6 @@ set_weapon(Weapon):-
 get_weapon(Weapon):-
     player(_,_,_,_,_,Weapon,_), !.
 
-has_weapon :- get_weapon(Weapon), write('weapon q '), write(Weapon), nl, Weapon \== none, !.
-
 /* Inventory */
 add_item(Item):- /* Use for command Take */
     retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)),

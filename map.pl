@@ -122,8 +122,6 @@ look :- print_current_grid_situation, print_neighbours_code.
 print_current_location_detail :- current_position(Row, Col), write('You enter '), print_grid_map(Row, Col), nl.
 print_current_location_detail :- write('yihaaaaaaa').
 
-is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
-
 % MAP LOOK - END
 
 map :- is_exist(radar), !, print_map.

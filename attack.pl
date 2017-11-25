@@ -15,6 +15,12 @@ kill_all_enemies(Length) :- current_position(X,Y),
 							get_all_nearby_enemy_length(Length),
 							retractall(enemy_at(X,Y,_,_)).
 
+is_enemy_nearby :- current_position(X,Y), enemy_at(X,Y,_,_), !.
+is_enemy_nearby :- write('Theres no enemy nearby...'), fail.
+
+has_weapon :- get_weapon(Weapon), Weapon \== none, !.
+has_weapon :- write('You got no weapon tho'), nl, fail.
+
 attack :- is_enemy_nearby,
 		  has_weapon,
 		  write('attacking enemy nearby '), nl,
@@ -22,4 +28,13 @@ attack :- is_enemy_nearby,
 		  write('You kill '), write(R), write(' enemy'), nl,
 		  write('But unfortunately , your HP decrease '), write(X), write(' :('), nl, !,
 		  check_game_over, check_win.
-attack :- write('no enemy nearby...'), nl.
+attack :- !.
+
+
+
+%% ATTACK SCRIPT
+seed_enemy :- asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)), asserta(enemy_at(1, 1, 12, 12)).
+
+
+
+qq :- seed_enemy, set_weapon(axe).
