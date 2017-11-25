@@ -22,7 +22,6 @@ help:-  write('Available commands:\n'),
         write('status         --- show your status\n'),
         write('nap            --- take a nap to renew health but decrease hunger and thirst\n'),
         write('saveGame(Filename) --- save your game\n'),
-        write('loadGame(Filename) --- load previously saved game\n'),
         write('Legends:\n'),
         write('m = medicine\n'),
         write('f = food\n'),
@@ -30,8 +29,8 @@ help:-  write('Available commands:\n'),
         write('s = weapon\n'),
         write('P = player\n'),
         write('E = enemy\n'),
-        write('- = accessible\n'),
-        write('# = fence\n'),
+        write('~,^,f,- = accessible\n'),
+        write('# = fence(not accessible)\n'),
         write('r = radar\n'),
         write('b = backpack\n').
 
@@ -57,7 +56,7 @@ title:- write('_________________________________________________________________
         write('Do you want to load or have a new game <load/new> ?\n'),
         read(X),
         (
-            X == 'load' -> write('Input the name of the file with the format (ex : \'save.txt\')'),nl ,init_map,read(Y) , loadGame(Y), nl, nl, help
+            X == 'load' -> write('Input the name of the file with the format (ex : \'save\')'),nl ,init_map,read(Y) , loadGame(Y), nl, nl, help
            ;X == 'new' -> initGame, nl, nl, help
         ).
 
