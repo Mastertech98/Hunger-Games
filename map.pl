@@ -55,7 +55,6 @@ print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,water), !,
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,weapon), !, write('s').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,bag), !, write('b').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,map), !, write('r').
-%% print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,radar), !, write('r').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == '#', !, write('#').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'O', !, write('-').
 print_grid_code(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('^').
@@ -77,20 +76,11 @@ print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, w
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('theres '),write('radar, will be useful to see the map'), nl.
 print_grid_detail(Row,Col) :- !.
 
-% MAP LOOK - Still unfinished (masih blom kepikiran)
-
 print_neighbours_code :- current_position(Row, Col),
                          A is Row-1, B is Row+1, C is Col-1, D is Col+1,
                          print_grid_code(A, C), write(' '), print_grid_code(A, Col), write(' '), print_grid_code(A, D), nl,
                          print_grid_code(Row, C), write(' '), print_grid_code(Row, Col), write(' '), print_grid_code(Row, D), nl,
                          print_grid_code(B, C), write(' '), print_grid_code(B, Col), write(' '), print_grid_code(B, D), nl.
-
-%% look :- current_position(Row, Col),
-%%          write('You\'re in '), print_grid_map(Row, Col), nl,
-%%          A is Row-1, B is Row+1, C is Col-1, D is Col+1,
-%%          print_grid_code(A, C), write(' '), print_grid_code(A, Col), write(' '), print_grid_code(A, D), nl,
-%%          print_grid_code(Row, C), write(' '), print_grid_code(Row, Col), write(' '), print_grid_code(Row, D), nl,
-%%          print_grid_code(B, C), write(' '), print_grid_code(B, Col), write(' '), print_grid_code(B, D), nl.
 
 print_current_grid_neighbours :- current_position(X,Y), !,
         A is X-1, write('on your north there\'s '), print_grid_map(A, Y), nl,
@@ -104,18 +94,10 @@ print_current_grid_map_message :- current_position(X,Y), write('You\'re in '), p
 print_current_grid_enemies :- current_position(X,Y), enemy_at(X,Y,_,_), write('You see enemy nearby!'), nl.
 print_current_grid_enemies :- !.
 
-%% print_current_grid_object(Type) :- current_position(X,Y), print_grid_detail(X,Y).
-print_current_grid_object(Type) :- current_position(X,Y), object_at(Name,X,Y),  object_type(Name, Type), write('You got '), write(Type), write(' nearby'), nl.
-print_current_grid_object(_) :- !.
-
 print_current_grid_situation :- print_current_grid_map_message,
                                 print_current_grid_enemies,
                                 current_position(X,Y),
                                 print_grid_detail(X,Y).
-                                %% print_current_grid_object(medicine),
-                                %% print_current_grid_object(food),
-                                %% print_current_grid_object(water),
-                                %% print_current_grid_object(weapon).
 
 look :- print_current_grid_situation, print_neighbours_code.
 
