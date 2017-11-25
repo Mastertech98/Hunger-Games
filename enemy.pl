@@ -18,6 +18,7 @@ movv(X, N) :- N == 1, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \
 movv(X, N) :- N == 2, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewRow is Row-1, valid(NewRow, Col), update_enemy_position(NewRow, Col, X).
 movv(X, N) :- N == 3, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewCol is Col+1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
 movv(X, N) :- N == 4, !, enemy_at(Row, Col, _, X), current_position(A,B), (Row \== A;Col \== B), !, NewCol is Col-1, valid(Row, NewCol), update_enemy_position(Row, NewCol, X).
+movv(_, _) :- !.
 
 move_enemy([]) :- !.
 move_enemy([A|B]) :- random(1,4,N), movv(A, N), move_enemy(B).
