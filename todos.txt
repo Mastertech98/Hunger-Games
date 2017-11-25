@@ -29,6 +29,6 @@ PEMBAGIAN TUGAS :
 - Save dan load
 
 Issue 
-- Kalau satu petak dengan musuh dan dia gk atk ,musuh jg gk atk(blm)
+- Pas musuh atk minta true? sama masi banyak pas take() bs take cuman jadi no
 - di load, kalo file load ga ada, belum bisa memunculkan pesan kesalahan.
 - load belum looping
