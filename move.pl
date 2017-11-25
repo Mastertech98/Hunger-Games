@@ -10,7 +10,9 @@ go(Direction) :- current_position(A,B),
                  valid(C,D),
                  retract(current_position(_,_)),
                  asserta(current_position(C,D)),
-                 move_detail, move_cost, check_game_state, !.
+                 move_detail, move_cost,
+                 random_move_all_enemies,
+                 check_game_state, !.
 
 go(_) :- write('Can not move there'), nl.
 

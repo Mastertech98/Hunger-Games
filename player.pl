@@ -210,8 +210,8 @@ status :-
 
 /* Take command */
 take(Object) :- 
-                ( can_take(Object) -> format('You took ~w !',[Object]),nl,!
-                ; format('~w does not exist here or your inventory is full',[Object]),nl,fail
+                ( can_take(Object) -> format('You took ~w !',[Object]),nl,random_move_all_enemies,!
+                ; format('~w does not exist here or your inventory is full',[Object]),nl,random_move_all_enemies,fail
                 ).
 
 can_take(Object) :- 

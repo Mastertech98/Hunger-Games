@@ -27,6 +27,7 @@ attack :- is_enemy_nearby,
 		  calculate_damage(X), kill_all_enemies(R),
 		  write('You kill '), write(R), write(' enemy'), nl,
 		  write('But unfortunately , your HP decrease '), write(X), write(' :('), nl, !,
+		  random_move_all_enemies,
 		  check_game_over, check_win.
 attack :- !.
 
