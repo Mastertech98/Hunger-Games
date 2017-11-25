@@ -265,4 +265,4 @@ expand(Object) :- object_type(Object,bag) , use(Object).
 
 /* Nap command */
 nap :- increase_health(20),decrease_thirst(15),decrease_hunger(15),
-       write('You have treated your wounds by take a nap.But hmmm ,I feel more hungry and thirsty').
+       write('You have treated your wounds by take a nap.But hmmm ,I feel more hungry and thirsty\n'),check_game_state,!.
