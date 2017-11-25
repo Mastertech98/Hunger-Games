@@ -7,12 +7,12 @@ get_newPositon(Direction, A, B, C, D) :- Direction == w, !, C is A, D is B-1.
 
 go(Direction) :- current_position(A,B),
                  get_newPositon(Direction,A,B,C,D),
-                 valid(C,D),
+                 valid(C,D), !,
                  retract(current_position(_,_)),
                  asserta(current_position(C,D)),
                  move_detail, move_cost,
-                 random_move_all_enemies,
-                 check_game_state, !.
+                 random_move_all_enemies, !,
+                 check_game_state.
 
 go(_) :- write('Can not move there'), nl.
 

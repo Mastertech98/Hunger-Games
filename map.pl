@@ -8,7 +8,7 @@
 
 current_position(1,1).
 
-valid(A,B) :- map_at(A,B,X), X \== '#'.
+valid(A,B) :- !, map_at(A,B,X), X \== '#'.
 
 % MAP INITIALIZATION - START
 make_map_from_list(_, _, []) :- !.
@@ -49,9 +49,9 @@ print_map :- print_map_inner(0,0).
 
 print_grid_code(Row,Col) :- current_position(Row,Col), !, write('P').
 print_grid_code(Row,Col) :- enemy_at(Row,Col,_, _), !, write('E').
-print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,medicine), !, write('m').
+print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,medical), !, write('m').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,food), !, write('f').
-print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,water), !, write('w').
+print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,drink), !, write('w').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,weapon), !, write('s').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,bag), !, write('b').
 print_grid_code(Row,Col) :- object_at(Name,Row,Col), object_type(Name,map), !, write('r').
@@ -68,9 +68,9 @@ print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'L', !, write('lake').
 print_grid_map(Row,Col) :- map_at(Row,Col,X), X == 'F', !, write('forest').
 print_grid_map(_,_) :- !, write('unknown grid map').
 
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medicine), !, write('theres '), write(X), write(', cure yourself with it!'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, medical), !, write('theres '), write(X), write(', cure yourself with it!'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, food), !, write('theres '),write(X), write(', it seems like it\'s edible'), nl.
-print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, water), !, write('theres '),write(X), write(', could definitely cure yout thrist'), nl.
+print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, drink), !, write('theres '),write(X), write(', could definitely cure yout thrist'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, weapon), !, write('theres '),write(X), write(', attack your enemy with it!'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, bag), !, write('theres '),write('backpack, extra storage for your inventory!'), nl.
 print_grid_detail(Row, Col) :- object_at(X, Row, Col), object_type(X, map), !, write('theres '),write('radar, will be useful to see the map'), nl.

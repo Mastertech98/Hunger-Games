@@ -243,7 +243,7 @@ delete_item(Object) :- retract(player(X,Y,Health,Hunger,Thirst,Weapon,Inventory)
 
 /* Rules for deleting just one element in list */
 delete_once(X,[X|Xs],Xs) :- !.
-delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).  
+delete_once(X,[Y|Xs],[Y|Ys]) :- dif(X,Y) , delete_once(X,Xs,Ys).
 
 /* Use command */
 use(Object) :-  
