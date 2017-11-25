@@ -17,7 +17,7 @@ go(Direction) :- current_position(A,B),
 go(_) :- write('Can not move there'), nl.
 
 move_detail :- print_current_grid_situation, print_current_grid_neighbours.
-move_cost :- decrease_hunger(1), decrease_thirst(1).
+move_cost :- decrease_hunger(5), decrease_thirst(5).
 %% check_game_state :- check_game_over, check_win.
 
 n :- go(n), !.
